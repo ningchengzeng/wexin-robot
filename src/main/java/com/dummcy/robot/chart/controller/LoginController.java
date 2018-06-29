@@ -24,7 +24,7 @@ public class LoginController {
 	private ILoginService loginService = new LoginServiceImpl();
 	private static Core core = Core.getInstance();
 
-	public void login(String qrPath) {
+	public void login() {
 		if (core.isAlive()) { // 已登陆
 			LOG.info("itchat4j已登陆");
 			return;
@@ -40,7 +40,7 @@ public class LoginController {
 					}
 				}
 				LOG.info("2. 获取登陆二维码图片");
-				if (loginService.getQR(qrPath)) {
+				if (loginService.getQR()) {
 					break;
 				} else if (count == 10) {
 					LOG.error("2.2. 获取登陆二维码图片失败，系统退出");
@@ -67,7 +67,6 @@ public class LoginController {
 		loginService.wxStatusNotify();
 
 		LOG.info("7. 清除。。。。");
-		CommonTools.clearScreen();
 		LOG.info(String.format("欢迎回来， %s", core.getNickName()));
 
 		LOG.info("8. 开始接收消息");

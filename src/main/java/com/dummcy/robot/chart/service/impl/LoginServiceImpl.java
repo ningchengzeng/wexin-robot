@@ -1,8 +1,5 @@
 package com.dummcy.robot.chart.service.impl;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.regex.Matcher;
 
+import com.dummcy.robot.chart.utils.tools.QRCodeUtils;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.message.BasicNameValuePair;
@@ -129,18 +127,14 @@ public class LoginServiceImpl implements ILoginService {
 	}
 
 	@Override
-	public boolean getQR(String qrPath) {
-		qrPath = qrPath + File.separator + "QR.jpg";
+	public boolean getQR() {
 		String qrUrl = URLEnum.QRCODE_URL.getUrl() + core.getUuid();
 		HttpEntity entity = myHttpClient.doGet(qrUrl, null, true, null);
 		try {
-			OutputStream out = new FileOutputStream(qrPath);
-			byte[] bytes = EntityUtils.toByteArray(entity);
-			out.write(bytes);
-			out.flush();
-			out.close();
 			try {
-				CommonTools.printQr(qrPath); // 打开登陆二维码图片
+				String value = QRCodeUtils.decode(entity.getContent());
+				String qr = QRCodeUtils.generateQR(value, 40, 40);
+				LOG.info("\r\n" + qr);
 			} catch (Exception e) {
 				LOG.info(e.getMessage());
 			}
@@ -451,7 +445,7 @@ public class LoginServiceImpl implements ILoginService {
 	 *
 	 * @author https://github.com/yaphone
 	 * @date 2017年4月9日 下午12:16:26
-	 * @param result
+	 * @param loginContent
 	 */
 	private void processLoginInfo(String loginContent) {
 		String regEx = "window.redirect_uri=\"(\\S+)\";";

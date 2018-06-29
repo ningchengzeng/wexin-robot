@@ -37,7 +37,7 @@ public interface ILoginService {
 	 * @param qrPath
 	 * @return
 	 */
-	boolean getQR(String qrPath);
+	boolean getQR();
 
 	/**
 	 * web初始化

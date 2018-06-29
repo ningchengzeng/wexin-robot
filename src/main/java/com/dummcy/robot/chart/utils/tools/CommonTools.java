@@ -33,55 +33,6 @@ import com.dummcy.robot.chart.utils.enums.OsNameEnum;
  */
 public class CommonTools {
 
-	public static boolean printQr(String qrPath) {
-
-		switch (Config.getOsNameEnum()) {
-		case WINDOWS:
-			if (Config.getOsNameEnum().equals(OsNameEnum.WINDOWS)) {
-				Runtime runtime = Runtime.getRuntime();
-				try {
-					runtime.exec("cmd /c start " + qrPath);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			break;
-		case MAC:
-			if (Config.getOsNameEnum().equals(OsNameEnum.MAC)) {
-				Runtime runtime = Runtime.getRuntime();
-				try {
-					runtime.exec("open " + qrPath);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			break;
-
-		default:
-			break;
-		}
-		return true;
-	}
-
-	public static boolean clearScreen() {
-		switch (Config.getOsNameEnum()) {
-		case WINDOWS:
-			if (Config.getOsNameEnum().equals(OsNameEnum.WINDOWS)) {
-				Runtime runtime = Runtime.getRuntime();
-				try {
-					runtime.exec("cmd /c " + "cls");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			break;
-
-		default:
-			break;
-		}
-		return true;
-	}
-
 	/**
 	 * 正则表达式处理工具
 	 * 
