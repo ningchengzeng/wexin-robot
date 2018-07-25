@@ -9,7 +9,6 @@ public class MessageHandler implements IMsgHandlerFace {
 
     @Override
     public String textMsgHandle(BaseMsg msg) {
-
         return null;
     }
 
